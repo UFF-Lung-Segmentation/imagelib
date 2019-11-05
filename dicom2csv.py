@@ -3,9 +3,8 @@ import os
 import pydicom
 import util
 
-# [substituir nesta seção diretórios de entrada e saída]
 input_path  = util.config["dicom_path"]
-csv_path = util.config["input_path"]
+output_path = util.config["csv_path"]
 
 input_folder = os.fsencode(input_path)
 files = os.listdir(input_folder)
@@ -23,7 +22,7 @@ for file in files:
     image = m * ds.pixel_array + b
 
     # grava arquivo csv
-    output_filename = "{}/{}{}".format(csv_path, os.fsdecode(file)[:-4], ".txt")
+    output_filename = "{}/{}{}".format(output_path, os.fsdecode(file)[:-4], ".txt")
     print(output_filename)
     image = numpy.int16(image)
     numpy.savetxt(output_filename, image, fmt="%d", delimiter=",")

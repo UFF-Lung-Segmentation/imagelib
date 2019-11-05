@@ -1,0 +1,5 @@
+[Geral]
+dicom_path = "dataset/id_paciente/dicom"
+csv_path = "dataset/id_paciente/csv"
+segmentation_path = "dataset/id_paciente/segmentation"
+jpg_path = "dataset/id_paciente/jpg"
