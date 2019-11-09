@@ -8,7 +8,7 @@ import sys
 # A command line argument with file extension can be used in case you want to download only specific types
 # Example:
 # To download only dicom files: python3 download_dataset.py dcm
-# To download only csv files: python3 download_dataset.py csv
+# To download only txt (csv) files: python3 download_dataset.py txt
 
 BUCKET_URL = 'http://ratos.s3-sa-east-1.amazonaws.com/'
 DATASET_FOLDER = 'dataset/'
