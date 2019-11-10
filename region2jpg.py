@@ -68,7 +68,7 @@ for i in range(qtd_images):
         gray = normalized.astype('uint8')
 
         # aplica a máscara
-        masked_image = util.overlay_image(gray, region)
+        masked_image = util.overlay_image(gray, region, True)
 
         # salva imagem como jpg
         output_filepath = "{}/{}.jpg".format(output_folder, os.fsdecode(image_filename[:-4]))
