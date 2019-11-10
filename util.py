@@ -2,6 +2,8 @@ import cv2
 import configparser
 import datetime
 import sys
+from skimage import color
+import numpy as np
 
 configparser = configparser.ConfigParser()
 configparser.read('config.ini')
@@ -17,3 +19,15 @@ def show(imagem):
     cv2.imshow("imagem", imagem)
     cv2.waitKey()
 
+def log(message):
+    now = datetime.datetime.now()
+    print("{}: {}".format(now.strftime("[LOG] %Y-%m-%d %H:%M:%S.%f"), message), flush=True)
+
+def overlay_image(base_image, mask):
+    alpha = 0.6
+    color_image = np.dstack((base_image, base_image, base_image))
+    overlay = color_image.copy()
+    output = color_image.copy()
+    overlay[mask > 0] =  (255, 0, 0)
+    cv2.addWeighted(overlay, alpha, output, 1 - alpha, 0, output)
+    return output
