@@ -3,6 +3,7 @@ import os
 import imageio
 import util
 import sys
+import cv2
 
 WINDOW_LENGHT=-100
 WINDOW_WIDTH=1220
@@ -11,9 +12,10 @@ MIN_DICOM=-1024
 MAX_DICOM=1024
 
 # define folder variables
-image_folder  = util.config["csv_path"]
-region_folder  = util.config["region_path"]
-output_folder = util.config["jpg_path"]
+base_path ="{}/{}".format(util.config["dataset_path"], util.config["animal"])
+image_folder  = "{}/{}".format(base_path, util.config["csv_folder"])
+region_folder = "{}/{}".format(base_path, util.config["region_folder"])
+output_folder = "{}/{}".format(base_path, util.config["jpg_folder"])
 
 image_files = os.listdir(os.fsencode(image_folder))
 qtd_images = len(image_files)
@@ -38,7 +40,7 @@ for i in range(qtd_images):
     image_filename = os.fsdecode(image_files[i])
     region_filename = os.fsdecode(region_files[i])
     if (image_filename.find(".csv") > 0) or (image_filename.find(".txt") > 0):
-    # if (i == 169):
+    # if (i == 0):
         # carrega a imagem
         image_filepath = "{}/{}".format(image_folder, image_filename)
         image = np.loadtxt(open(image_filepath, "rb"), delimiter=",")
@@ -50,6 +52,7 @@ for i in range(qtd_images):
         region_filepath = "{}/{}".format(region_folder, region_filename)
         region = np.loadtxt(open(region_filepath, "rb"), delimiter=",")
         region = region.astype("uint8")
+        area_regiao = np.sum(region)
 
         # normaliza imagem
         min_window = WINDOW_LENGHT - (WINDOW_WIDTH // 2)
@@ -68,7 +71,9 @@ for i in range(qtd_images):
         gray = normalized.astype('uint8')
 
         # aplica a máscara
-        masked_image = util.overlay_image(gray, region, True)
+        masked_image = util.overlay_image(gray, region, False)
+
+        cv2.putText(masked_image, "region area={}".format(area_regiao), (10, 30), cv2.FONT_HERSHEY_DUPLEX, 0.6, (255, 255, 255), lineType=cv2.LINE_AA)
 
         # salva imagem como jpg
         output_filepath = "{}/{}.jpg".format(output_folder, os.fsdecode(image_filename[:-4]))

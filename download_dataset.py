@@ -13,7 +13,6 @@ import sys
 BUCKET_URL = 'http://ratos.s3-sa-east-1.amazonaws.com/'
 DATASET_FOLDER = 'dataset/'
 
-
 def download_arquivo(file, file_type, count):
     tamanho = len(file)
     local_filename = "{}{}".format(DATASET_FOLDER, file)

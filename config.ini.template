@@ -1,5 +1,8 @@
+# arquivo de configuracoes
 [Geral]
-dicom_path=dataset/id_paciente/dicom
-csv_path=dataset/id_paciente/csv
-region_path=dataset/id_paciente/region
-jpg_path=dataset/id_paciente/jpg
+dataset_path=[substituir pelo caminho onde fez download do dataset, exemplo: /temp/dataset]
+animal=[substituir pelo nome do animal que irá processar, exemplo: Cx1Ima2]
+dicom_folder=dicom
+csv_folder=csv
+region_folder=region
+jpg_folder=jpg

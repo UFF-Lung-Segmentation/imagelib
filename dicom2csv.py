@@ -3,8 +3,10 @@ import os
 import pydicom
 import util
 
-input_path  = util.config["dicom_path"]
-output_path = util.config["csv_path"]
+base_path ="{}/{}".format(util.config["dataset_path"], util.config["animal"])
+input_path = "{}/{}".format(base_path, util.config["dicom_folder"])
+output_path  = "{}/{}".format(base_path, util.config["csv_folder"])
+
 input_folder = os.fsencode(input_path)
 files = os.listdir(input_folder)
 files.sort()
