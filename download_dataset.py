@@ -28,12 +28,12 @@ def download_arquivo(file, file_type, count):
         download = False
     if download:
         url = "{}{}".format(BUCKET_URL, file)
-        try:
-            os.makedirs(os.path.dirname(local_filename))
+        if os.path.exists(local_filename):
+            print(count, " Arquivo %s ja existe" % local_filename)
+        else:
+            os.makedirs(os.path.dirname(local_filename), exist_ok=True)
             urllib.request.urlretrieve(url, local_filename)
             print(count, " Baixou arquivo %s com sucesso" % local_filename)
-        except FileExistsError:
-            print(count, " Arquivo %s ja existe" % local_filename)
 
 
 if __name__ == '__main__':
