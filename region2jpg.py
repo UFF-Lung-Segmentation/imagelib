@@ -41,6 +41,7 @@ for i in range(qtd_images):
     region_filename = os.fsdecode(region_files[i])
     if (image_filename.find(".csv") > 0) or (image_filename.find(".txt") > 0):
     # if (i == 0):
+        util.log("processando corte ".format(image_filename))
         # carrega a imagem
         image_filepath = "{}/{}".format(image_folder, image_filename)
         image = np.loadtxt(open(image_filepath, "rb"), delimiter=",")
