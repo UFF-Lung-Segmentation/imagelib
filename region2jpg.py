@@ -74,11 +74,19 @@ for i in range(qtd_images):
         # aplica a máscara
         masked_image = util.overlay_image(gray, region, False)
 
+        # inclui texto com a área
         cv2.putText(masked_image, "region area={}".format(area_regiao), (10, 30), cv2.FONT_HERSHEY_DUPLEX, 0.6, (255, 255, 255), lineType=cv2.LINE_AA)
+
+        # inclui texto com o número do slide!!!
+        cv2.putText(masked_image, "{}".format(os.fsdecode(image_filename[8:-4])), (225, 30), cv2.FONT_HERSHEY_DUPLEX, 0.6, (255, 255, 255), lineType=cv2.LINE_AA)
 
         # salva imagem como jpg
         output_filepath = "{}/{}.jpg".format(output_folder, os.fsdecode(image_filename[:-4]))
         imageio.imwrite(output_filepath, masked_image)
 
+
+output_video_path = "{}/movie.mp4".format(output_folder)
+ffmpeg = "ffmpeg -r 1 -i {}/IM-0001-%04d.jpg -vcodec mpeg4 -y {}".format(output_folder, output_video_path)
+os.system(ffmpeg)
 
 print ("Done")
