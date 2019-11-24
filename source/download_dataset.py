@@ -29,6 +29,8 @@ def download_arquivo(file, file_type, animal, count):
         download = True
     elif ((file_type == file_type_remoto) and (animal == "all")):
         download = True
+    elif ((file_type == file_type_remoto) and (animal == animal_remoto)):
+        download = True
 
     if download:
         url = "{}{}".format(BUCKET_URL, file)
