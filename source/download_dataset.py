@@ -13,19 +13,23 @@ import sys
 BUCKET_URL = 'http://ratos.s3-sa-east-1.amazonaws.com/'
 DATASET_FOLDER = 'dataset/'
 
-def download_arquivo(file, file_type, count):
+def download_arquivo(file, file_type, animal, count):
     tamanho = len(file)
     local_filename = "{}{}".format(DATASET_FOLDER, file)
+    animal_remoto = file[:file.find('/')]
+    file_type_remoto = file[-3:]
 
     # verifica se deve baixar o item atual
+    download = False
     if (file[tamanho - 1] == '/'):
         download = False
-    elif (file_type == "all"):
+    elif (file_type == "all") and (animal == "all"):
         download = True
-    elif (file.find(".{}".format(file_type)) > 0):
+    elif ((file_type == "all") and (animal == animal_remoto)):
         download = True
-    else:
-        download = False
+    elif ((file_type == file_type_remoto) and (animal == "all")):
+        download = True
+
     if download:
         url = "{}{}".format(BUCKET_URL, file)
         if os.path.exists(local_filename):
@@ -37,11 +41,13 @@ def download_arquivo(file, file_type, count):
 
 
 if __name__ == '__main__':
-    # define quais tipos de arquivos vai baixar
+    # define qual tipo de arquivos vai baixar e o animal
     file_type = "all"
-    if len(sys.argv) == 2:
+    animal = "all"
+    if len(sys.argv) >= 2:
         file_type = sys.argv[1]
-
+    if len(sys.argv) >= 3:
+        animal = sys.argv[2]
     count = 0
 
     # tratamento paginacao
@@ -77,6 +83,6 @@ if __name__ == '__main__':
                         last_file = file
                         if (file != None) and (file.find("index.html") < 0):
                             count += 1
-                            download_arquivo(file, file_type, count)
+                            download_arquivo(file, file_type, animal, count)
 
     print("Done")

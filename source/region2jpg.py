@@ -77,7 +77,7 @@ for i in range(qtd_images):
         # inclui texto com a área
         cv2.putText(masked_image, "region area={}".format(area_regiao), (10, 30), cv2.FONT_HERSHEY_DUPLEX, 0.6, (255, 255, 255), lineType=cv2.LINE_AA)
 
-        # inclui texto com o número do slide!!!
+        # inclui texto com o número do slide
         cv2.putText(masked_image, "{}".format(os.fsdecode(image_filename[8:-4])), (225, 30), cv2.FONT_HERSHEY_DUPLEX, 0.6, (255, 255, 255), lineType=cv2.LINE_AA)
 
         # salva imagem como jpg
