@@ -2,3 +2,4 @@ numpy
 imageio
 opencv_python
 scikit-image
+pydicom

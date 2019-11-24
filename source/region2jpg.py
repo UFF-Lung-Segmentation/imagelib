@@ -85,7 +85,7 @@ for i in range(qtd_images):
         imageio.imwrite(output_filepath, masked_image)
 
 
-output_video_path = "{}/movie.mp4".format(output_folder)
+output_video_path = "{}/{}.mp4".format(output_folder, util.config["animal"])
 ffmpeg = "ffmpeg -r 1 -i {}/IM-0001-%04d.jpg -vcodec mpeg4 -y {}".format(output_folder, output_video_path)
 os.system(ffmpeg)
 

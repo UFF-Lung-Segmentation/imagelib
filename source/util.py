@@ -2,7 +2,6 @@ import cv2
 import configparser
 import datetime
 import sys
-from skimage import color
 import numpy as np
 
 configparser = configparser.ConfigParser()
